@@ -12,7 +12,7 @@ class RingBufferQueue<T : Any>(size: Int) : Queue<T> {
     }
 
     override fun dequeue(): T? {
-        TODO("Not yet implemented")
+       return if(isEmpty) null else ringBuffer.read()
     }
 
     override fun peek(): T? = ringBuffer.first
