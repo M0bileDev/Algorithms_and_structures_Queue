@@ -16,7 +16,9 @@ class LinkedListQueue<T : Any> : Queue<T> {
     }
 
     override fun dequeue(): T? {
-        TODO("Not yet implemented")
+        val firstNode = list.first ?: return null
+        size--
+        return list.remove(firstNode)
     }
 
     override fun peek(): T? {
