@@ -14,4 +14,6 @@ class ArrayListQueue<T : Any> : Queue<T> {
         list.add(element)
         return true
     }
+
+    override fun dequeue(): T? = if (isEmpty) null else list.removeAt(0)
 }
