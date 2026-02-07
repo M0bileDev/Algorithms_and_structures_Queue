@@ -1,6 +1,6 @@
 interface Queue<T : Any> {
 
-    val count: T?
+    val count: Int
     val isEmpty: Boolean get() = count == 0
 
     fun enqueue(element: T): Boolean
