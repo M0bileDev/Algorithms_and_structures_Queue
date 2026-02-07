@@ -1,58 +1,54 @@
 package ringbuffer
 
+@Suppress("UNCHECKED_CAST")
 class RingBuffer<T : Any>(private val size: Int) {
 
-  private var array = ArrayList<T?>(size)
-  private var readIndex = 0
-  private var writeIndex = 0
+    private val array = arrayOfNulls<Any>(size)
 
-  val count: Int
-    get() = availableSpaceForReading
+    private var readIndex = 0
+    private var writeIndex = 0
+    var count = 0
+        private set
 
-  private val availableSpaceForReading: Int
-    get() = (writeIndex - readIndex)
+    val isEmpty: Boolean
+        get() = count == 0
 
-  val first: T?
-    get() = array.getOrNull(readIndex)
+    val isFull: Boolean
+        get() = count == size
 
-  val isEmpty: Boolean
-    get() = (count == 0)
+    val first: T?
+        get() = if (isEmpty) null else array[readIndex] as T
 
-  private val availableSpaceForWriting: Int
-    get() = (size - availableSpaceForReading)
+    fun write(element: T): Boolean {
+        if (isFull) return false
 
-  val isFull: Boolean
-    get() = (availableSpaceForWriting == 0)
+        array[writeIndex] = element
+        writeIndex = (writeIndex + 1) % size
+        count++
 
-  fun write(element: T): Boolean {
-    return if (!isFull) {
-      if (array.size < size) {
-        array.add(element)
-      } else {
-        array[writeIndex % size] = element
-      }
-      writeIndex += 1
-      true
-    } else {
-      false
+        return true
     }
-  }
 
-  fun read(): T? {
-    return if (!isEmpty) {
-      val element = array[readIndex % size]
-      readIndex += 1
-      element
-    } else {
-      null
+    fun read(): T? {
+        if (isEmpty) return null
+
+        val element = array[readIndex] as T
+        array[readIndex] = null // helps GC
+
+        readIndex = (readIndex + 1) % size
+        count--
+        return element
     }
-  }
 
-  override fun toString(): String {
-    val values = (0 until availableSpaceForReading).map { offset ->
-      "${array[(readIndex + offset) % size]!!}"
+    override fun toString(): String {
+        if (isEmpty) return "[],".repeat(size).removeSuffix(",")
+
+        return buildString {
+            val iterator = array.iterator()
+            while (iterator.hasNext()) {
+                append("[").append(iterator.next()).append("]").append(",")
+            }
+        }.removeSuffix(",")
+
     }
-    return values.joinToString(prefix = "[", separator = ", ", postfix = "]")
-  }
-
 }
