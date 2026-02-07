@@ -16,4 +16,8 @@ class ArrayListQueue<T : Any> : Queue<T> {
     }
 
     override fun dequeue(): T? = if (isEmpty) null else list.removeAt(0)
+
+    override fun toString(): String {
+        return list.toString()
+    }
 }
