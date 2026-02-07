@@ -24,4 +24,8 @@ class LinkedListQueue<T : Any> : Queue<T> {
     override fun peek(): T? {
         return list.first?.value
     }
+
+    override fun toString(): String {
+        return list.toString()
+    }
 }
