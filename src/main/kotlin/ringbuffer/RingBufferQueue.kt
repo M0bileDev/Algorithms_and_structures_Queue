@@ -8,7 +8,7 @@ class RingBufferQueue<T : Any>(size: Int) : Queue<T> {
     override val count: Int = ringBuffer.count
 
     override fun enqueue(element: T): Boolean {
-        TODO("Not yet implemented")
+        return ringBuffer.write(element)
     }
 
     override fun dequeue(): T? {
