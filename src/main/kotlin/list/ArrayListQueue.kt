@@ -9,4 +9,9 @@ class ArrayListQueue<T : Any> : Queue<T> {
         get() = list.size
 
     override fun peek(): T? = list.getOrNull(0)
+
+    override fun enqueue(element: T): Boolean {
+        list.add(element)
+        return true
+    }
 }
