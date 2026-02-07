@@ -5,7 +5,7 @@ import Queue
 class RingBufferQueue<T : Any>(size: Int) : Queue<T> {
     private val ringBuffer = RingBuffer<T>(size)
 
-    override val count: Int = ringBuffer.count
+    override val count: Int get() = ringBuffer.count
 
     override fun enqueue(element: T): Boolean {
         return ringBuffer.write(element)
