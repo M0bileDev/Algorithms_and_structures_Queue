@@ -1,5 +1,6 @@
 import linkedlist.LinkedListQueue
 import list.ArrayListQueue
+import ringbuffer.RingBufferQueue
 
 fun main() {
 
@@ -25,6 +26,31 @@ fun main() {
         queue.dequeue()
         println(queue)
         println("Next up: ${queue.peek()}")
+    }
+
+    "Queue with Ring Buffer" example {
+        val queue = RingBufferQueue<String>(2)
+        println(queue)
+        queue.enqueue("Brown")
+        println(queue)
+        queue.enqueue("Red")
+        println(queue)
+        queue.dequeue()
+        println(queue)
+        queue.dequeue()
+        println(queue)
+        queue.enqueue("Brown")
+        println(queue)
+        queue.enqueue("Red")
+        println(queue)
+        queue.enqueue("White")
+        println(queue)
+        queue.dequeue()
+        println(queue)
+        queue.enqueue("White")
+        println(queue)
+        println("Next up: ${queue.peek()}")
+        println("Next up: ${queue.count}")
     }
 
 }
