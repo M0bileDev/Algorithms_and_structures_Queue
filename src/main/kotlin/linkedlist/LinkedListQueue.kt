@@ -22,6 +22,6 @@ class LinkedListQueue<T : Any> : Queue<T> {
     }
 
     override fun peek(): T? {
-        TODO("Not yet implemented")
+        return list.first?.value
     }
 }
