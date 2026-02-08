@@ -1,3 +1,4 @@
+import doublestack.StackQueue
 import linkedlist.LinkedListQueue
 import list.ArrayListQueue
 import ringbuffer.RingBufferQueue
@@ -53,6 +54,19 @@ fun main() {
         println("Next up: ${queue.count}")
     }
 
+    "Queue with Double Stack" example {
+        val queue = StackQueue<String>().apply {
+            enqueue("Ray")
+            enqueue("Brian")
+            enqueue("Eric")
+        }
+        println(queue)
+        queue.dequeue()
+        println(queue)
+        queue.dequeue()
+        println(queue)
+        println("Next up: ${queue.peek()}")
+    }
 }
 
 infix fun String.example(function: () -> Unit) {
