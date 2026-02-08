@@ -67,6 +67,31 @@ fun main() {
         println(queue)
         println("Next up: ${queue.peek()}")
     }
+
+    "challenge 2 -> exmaple of ringbuffer" example {
+        val queue = RingBufferQueue<String>(5).apply {
+            enqueue("D")
+            enqueue("S")
+            enqueue("L")
+            enqueue("A")
+            enqueue("G")
+        }.apply { println(this) }
+
+        println(queue.enqueue("R"))
+        println(queue)
+        println(queue.enqueue("O"))
+        println(queue)
+        println(queue.dequeue())
+        println(queue)
+        println(queue.enqueue("C"))
+        println(queue)
+        println(queue.dequeue())
+        println(queue)
+        println(queue.dequeue())
+        println(queue)
+        println(queue.enqueue("K"))
+        println(queue)
+    }
 }
 
 infix fun String.example(function: () -> Unit) {
