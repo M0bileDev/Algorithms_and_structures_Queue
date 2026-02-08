@@ -60,8 +60,14 @@ fun <T : Any> stackOf(vararg elements: T): Stack<T> {
 }
 
 class StackQueue<T: Any> : Queue<T>{
+    private val dequeueStack = StackImpl<T>()
+    private val enqueueStack = StackImpl<T>()
+
     override val count: Int
-        get() = TODO("Not yet implemented")
+        get() = enqueueStack.count + dequeueStack.count
+
+    override val isEmpty: Boolean
+        get() = enqueueStack.isEmpty && dequeueStack.isEmpty
 
     override fun enqueue(element: T): Boolean {
         TODO("Not yet implemented")
