@@ -75,7 +75,7 @@ class StackQueue<T : Any> : Queue<T> {
     }
 
     override fun dequeue(): T? {
-        if(dequeueStack.isEmpty){
+        if (dequeueStack.isEmpty) {
             transferElements()
         }
         return dequeueStack.pop()
@@ -94,5 +94,9 @@ class StackQueue<T : Any> : Queue<T> {
             dequeueStack.push(nextElement)
             nextElement = enqueueStack.pop()
         }
+    }
+
+    override fun toString(): String {
+        return "Left stack: \n$dequeueStack \n Right stack: \n$enqueueStack"
     }
 }
