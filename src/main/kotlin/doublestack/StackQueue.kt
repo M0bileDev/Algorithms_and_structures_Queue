@@ -81,4 +81,11 @@ class StackQueue<T: Any> : Queue<T>{
         TODO("Not yet implemented")
     }
 
+    private fun transferElements(){
+        var nextElement = enqueueStack.pop()
+        while (nextElement != null){
+            dequeueStack.push(nextElement)
+            nextElement = enqueueStack.pop()
+        }
+    }
 }
