@@ -59,7 +59,7 @@ fun <T : Any> stackOf(vararg elements: T): Stack<T> {
     return StackImpl.create(elements.asList())
 }
 
-class StackQueue<T: Any> : Queue<T>{
+class StackQueue<T : Any> : Queue<T> {
     private val dequeueStack = StackImpl<T>()
     private val enqueueStack = StackImpl<T>()
 
@@ -70,7 +70,8 @@ class StackQueue<T: Any> : Queue<T>{
         get() = enqueueStack.isEmpty && dequeueStack.isEmpty
 
     override fun enqueue(element: T): Boolean {
-        TODO("Not yet implemented")
+        enqueueStack.push(element)
+        return true
     }
 
     override fun dequeue(): T? {
@@ -78,12 +79,15 @@ class StackQueue<T: Any> : Queue<T>{
     }
 
     override fun peek(): T? {
-        TODO("Not yet implemented")
+        if (dequeueStack.isEmpty) {
+            transferElements()
+        }
+        return dequeueStack.peek()
     }
 
-    private fun transferElements(){
+    private fun transferElements() {
         var nextElement = enqueueStack.pop()
-        while (nextElement != null){
+        while (nextElement != null) {
             dequeueStack.push(nextElement)
             nextElement = enqueueStack.pop()
         }
