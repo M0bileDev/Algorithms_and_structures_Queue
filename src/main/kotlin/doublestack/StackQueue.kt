@@ -75,7 +75,10 @@ class StackQueue<T : Any> : Queue<T> {
     }
 
     override fun dequeue(): T? {
-        TODO("Not yet implemented")
+        if(dequeueStack.isEmpty){
+            transferElements()
+        }
+        return dequeueStack.pop()
     }
 
     override fun peek(): T? {
